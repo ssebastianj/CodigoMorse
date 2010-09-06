@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
-# Codificador/Decodificador Morse
 
 class Morse:
-    """ Codificador/Decodificador Morse """
+    """Codificador/Decodificador Morse."""
     
     MORSE = {'A':   '.-',
              'B':   '-...',
@@ -76,37 +75,50 @@ class Morse:
              }
 
     def __init__(self, wpm=5):
+        """Constructor de la clase Morse.
+        
+        Argumentos:
+        wpm -- Words Per Minute (Palabras Por Minuto) default=5 
+        """
         self.PALABRAS_POR_MINUTO = wpm
         self.UNIDAD_TIEMPO = 1200.0 / wpm
-        self.PUNTO = self.UNIDAD_TIEMPO
-        self.RAYA = self.PUNTO * 3
-        self.ESPACIO_INTER_ELEMENTOS = self.PUNTO
-        self.ESPACIO_ENTRE_LETRAS = self.PUNTO * 3
-        self.ESPACIO_ENTRE_PALABRAS = self.PUNTO * 7
+        self.TMP_PUNTO = self.UNIDAD_TIEMPO
+        self.TMP_RAYA = self.TMP_PUNTO * 3
+        self.TMP_ESPACIO_INTER_ELEMENTOS = self.TMP_PUNTO
+        self.TMP_ESPACIO_ENTRE_LETRAS = self.TMP_PUNTO * 3
+        self.TMP_ESPACIO_ENTRE_PALABRAS = self.TMP_PUNTO * 7
 
-    def getPalabrasPorMinuto(self):
+    def get_palabras_por_minuto(self):
+        """Devuelve la cantidad de palabras por minuto."""
         return self.__PALABRAS_POR_MINUTO
 
-    def getUnidadTiempo(self):
+    def get_unidad_tiempo(self):
+        u"""Devuelve la duración en milisegundos de una unidad de tiempo."""
         return self.__UNIDAD_TIEMPO
 
-    def getTiempoPunto(self):
-        return self.__PUNTO
+    def get_tmp_punto(self):
+        u"""Devuelva la duración en milisegundos de un punto (dit)."""
+        return self.__TMP_PUNTO
 
-    def getTiempoRaya(self):
-        return self.__RAYA
+    def get_tmp_raya(self):
+        u"""Devuelve la duración en milisegundos de una raya (dash)."""
+        return self.__TMP_RAYA
 
-    def getTiempoEspacioInterElementos(self):
-        return self.__ESPACIO_INTER_ELEMENTOS
+    def get_tmp_espacio_inter_elementos(self):
+        u"""Devuelve la duración en milisegundos de un espacio entre elementos."""
+        return self.__TMP_ESPACIO_INTER_ELEMENTOS
 
-    def getTiempoEspacioEntreLetras(self):
-        return self.__ESPACIO_ENTRE_LETRAS
+    def get_tmp_espacio_entre_letras(self):
+        u"""Devuelve la duración en milisegundos de un espacio entre letras."""
+        return self.__TMP_ESPACIO_ENTRE_LETRAS
 
-    def getTiempoEspacioEntrePalabras(self):
-        return self.__ESPACIO_ENTRE_PALABRAS
+    def get_tmp_espacio_entre_palabras(self):
+        u"""Devuelve la duración en milisegundos de un espacio entre palabras."""
+        return self.__TMP_ESPACIO_ENTRE_PALABRAS
 
     def charToMorse(self, caracter):
-        """ Devuelve la representación en código Morse de un caracter
+        u"""Devuelve la representación en código Morse de un caracter.
+        
         Si el caracter es válido y distinto de Espacio -> Representación Morse
         Si el caracter es el Espacio -> ' '
         Si el caracter no es válido -> '_'
@@ -115,19 +127,19 @@ class Morse:
         elif caracter == ' ': return ' '
     
     def cadToMorse(self, cadena):
-        """ Devuelve la representación en código Morse de una cadena """
+        u"""Devuelve la representación en código Morse de una cadena."""
         convertido = ''
         for i in cadena:
             convertido += self.charToMorse(i) + ' '
         return convertido.strip()
         
     def letraMorseToChar(self, letra):
-        """ Devuelve la representación alfabética de una letra en código Morse """
+        u"""Devuelve la representación alfabética de una letra en código Morse."""
         for clave, valor in self.MORSE.iteritems():
             if letra == valor: return clave
             
     def cadMorseToCad(self, cadena):
-        """ Devuelve una cadena convertida desde un mensaje en código Morse """
+        u"""Devuelve una cadena alfabética a partir de una cadena en código Morse."""
         palabras = cadena.split('  ')
         convertida = ''
         for palabra in palabras:
@@ -137,10 +149,11 @@ class Morse:
             convertida += ' '
         return convertida.strip().lower()
     
-    PALABRAS_POR_MINUTO = property(getPalabrasPorMinuto, None, None, None)
-    UNIDAD_TIEMPO = property(getUnidadTiempo, None, None, None)
-    PUNTO = property(getTiempoPunto, None, None, None)
-    RAYA = property(getTiempoRaya, None, None, None)
-    ESPACIO_INTER_ELEMENTOS = property(getTiempoEspacioInterElementos, None, None, None)
-    ESPACIO_ENTRE_LETRAS = property(getTiempoEspacioEntreLetras, None, None, None)
-    ESPACIO_ENTRE_PALABRAS = property(getTiempoEspacioEntrePalabras, None, None, None)
+    #Seteo de las propiedades
+    PALABRAS_POR_MINUTO = property(get_palabras_por_minuto, None, None, None)
+    UNIDAD_TIEMPO = property(get_unidad_tiempo, None, None, None)
+    TMP_PUNTO = property(get_tmp_punto, None, None, None)
+    TMP_RAYA = property(get_tmp_raya, None, None, None)
+    TMP_ESPACIO_INTER_ELEMENTOS = property(get_tmp_espacio_inter_elementos, None, None, None)
+    TMP_ESPACIO_ENTRE_LETRAS = property(get_tmp_espacio_entre_letras, None, None, None)
+    TMP_ESPACIO_ENTRE_PALABRAS = property(get_tmp_espacio_entre_palabras, None, None, None)
