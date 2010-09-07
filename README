@@ -3,4 +3,4 @@ Author: 		  Sebastián J. Seba
 README Update:	  07-09-2010
 
 Python Version:   2.7 (r27:82525)
-External modules: pySerial (http://pyserial.sourceforge.net/)	
+External modules: pySerial v2.5 (http://pyserial.sourceforge.net/)	
