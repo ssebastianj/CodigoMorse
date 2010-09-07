@@ -1,2 +1,6 @@
-Autor: Sebastián J. Seba
-Fecha: 06-09-2010
+# ================================== Morse Code  ==================================
+Author: 		  Sebastián J. Seba
+README Update:	  07-09-2010
+
+Python Version:   2.7 (r27:82525)
+External modules: pySerial (http://pyserial.sourceforge.net/)	
