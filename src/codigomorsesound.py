@@ -7,7 +7,7 @@ import codigomorse
 
 class CodigoMorseSound:
         
-    def __init__(self, wpm=5, frequency=150):
+    def __init__(self, wpm=5, frequency=150, noteshape='sine'):
         self.palabras_por_minuto = wpm
         self.unidad_tiempo = 1200.0 / wpm
         self.frecuencia = frequency
@@ -15,6 +15,7 @@ class CodigoMorseSound:
         
         self._root = Tkinter.Tk()
         tkSnack.initializeSnack(self._root)
+        self._noteshape = noteshape
     
     def _configTimes(self):
         self.tmp_punto = self.unidad_tiempo
@@ -23,7 +24,7 @@ class CodigoMorseSound:
         self.tmp_espacio_entre_letras = self.tmp_punto * 3
         self.tmp_espacio_entre_palabras = self.tmp_punto * 7
         
-    def setWordsPerMinute(self, wpm=5):
+    def setWordsPerMinute(self, wpm):
         if wpm > 0: 
             self.palabras_por_minuto = wpm
             self.unidad_tiempo = 1200.0 / wpm
@@ -45,7 +46,7 @@ class CodigoMorseSound:
         else: 
             raise ValueError(u'frequency debe ser un número entre 1 y 10000.')
 
-    def setVolume(self, volume=50):
+    def setVolume(self, volume):
         if volume > 100: 
             volume = 100
         elif volume < 0: 
@@ -82,7 +83,7 @@ class CodigoMorseSound:
 
     def _playNote(self, frequency, duration):
         snd = tkSnack.Sound()
-        self._filt = tkSnack.Filter('generator', frequency, 30000, 0.0, 'sine', int(11500 * (duration / 1000)))
+        self._filt = tkSnack.Filter('generator', frequency, 30000, 0.0, self._noteshape, int(11500 * (duration / 1000)))
         snd.stop()
         snd.play(filter=self._filt, blocking=1)
         
@@ -93,19 +94,10 @@ class CodigoMorseSound:
         except:
             pass
         
-    def setNoteShape(self, shape=0):
-        if shape == 0:
-            self._noteshape = 'sine'
-        elif shape == 1:
-            self._noteshape = 'triangle'
-        elif shape == 2:
-            self._noteshape = 'rectangle'
-        elif shape == 3:
-            self._noteshape = 'noise'
-        elif shape == 4:
-            self._noteshape = 'sawtooth'
-        else:
-            raise ValueError('shape debe ser un valor entre 0 y 4.')
+    def setNoteShape(self, shape):
+        SHAPES = ['sine', 'triangle', 'rectangle', 'sawtooth', 'noise']
+        if shape.lower().strip() in SHAPES:
+            self._noteshape = shape
         
 if __name__ == '__main__':
     pass
