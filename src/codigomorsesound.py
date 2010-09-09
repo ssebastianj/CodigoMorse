@@ -79,7 +79,10 @@ class CodigoMorseSound:
                         letters_spaces -= 1
                 if words_spaces != 0:
                     self._playNote(self.frecuencia, self.tmp_espacio_entre_palabras)
-                    words_spaces -= 1               
+                    words_spaces -= 1
+                    
+    def playAlfString(self, alfstring):
+        self.playMorseString(codigomorse.encodeToMorse(alfstring))               
 
     def _playNote(self, frequency, duration):
         snd = tkSnack.Sound()
@@ -98,6 +101,8 @@ class CodigoMorseSound:
         SHAPES = ['sine', 'triangle', 'rectangle', 'sawtooth', 'noise']
         if shape.lower().strip() in SHAPES:
             self._noteshape = shape
+        else:
+            raise ValueError(u'El valor de shape no es válido.')
         
 if __name__ == '__main__':
     pass
