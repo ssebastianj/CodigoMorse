@@ -37,13 +37,22 @@ class CodigoMorseSound:
         else: raise ValueError(u'duration debe ser un número mayor a cero.')
         
     def setFrequency(self, frequency):
-        if frequency >= 37 and frequency <= 32767: self.frecuencia = frequency
-        else: raise ValueError(u'frequency debe ser un número entre 37 y 32767')
+        if frequency >= 1 and frequency <= 32767: self.frecuencia = frequency
+        else: raise ValueError(u'frequency debe ser un número entre 1 y 32767.')
 
     def setVolume(self, volume=50):
         if volume > 100: volume = 100
         elif volume < 0: volume = 0
         tkSnack.audio.play_gain(volume)
     
-    def playSound(self):
+    def playMorseString(self, morsestr):
+        if morsestr != '':
+            # Obtener palabras de la cadena que por convención deben estar separadas
+            # por 2 espacios
+            words = morsestr.split('  ')           
+
+    def playString(self, string):
         pass
+    
+if __name__ == '__main__':
+    pass

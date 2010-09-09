@@ -1,7 +1,7 @@
 # ================================== Morse Code  ==================================
-Author: 		  Sebastián J. Seba
-README Update:	  07-09-2010
+Author: 		 Sebastián J. Seba
+README Update:	 09-09-2010
 
-Python Version:   2.7 (r27:82525)
-Dependencies: * pySerial v2.5+ (http://pyserial.sourceforge.net/)	
-			  * Snack v2.2.10+ (http://www.speech.kth.se/snack/)
+Python Version:  2.7 (r27:82525)
+Dependencies: 	 * pySerial v2.5+ (http://pyserial.sourceforge.net/)	
+			     * Snack v2.2.10+ (http://www.speech.kth.se/snack/)

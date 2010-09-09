@@ -70,39 +70,32 @@ MORSE = {'A':   '.-',
          'SOS': '...---...',
          'ERROR':'........'
         }
-
-def charToMorse(caracter):
-    u"""Devuelve la representación en código Morse de un caracter.
-        
-    Si el caracter es válido y distinto de Espacio -> Representación Morse
-    Si el caracter es el Espacio -> ' '
-    Si el caracter no es válido -> None
-    """
-    char = caracter.upper()
-    if char in MORSE.keys(): return MORSE.get(char)
-    elif caracter == ' ': return ' '
-    else: return None
     
-def cadToMorse(cadena):
-    u"""Devuelve la representación en código Morse de una cadena."""
-    cadenamorse = []
-    for i in cadena: cadenamorse.append(charToMorse(i))
-    return ' '.join(cadenamorse)
-        
-def letraMorseToChar(letra):
-    u"""Devuelve la representación alfabética de una letra en código Morse."""
-    for clave, valor in MORSE.iteritems():
-        if letra == valor: return clave
-        else: return None
-            
-def cadMorseToCad(cadena):
-    u"""Devuelve una cadena alfabética a partir de una cadena en código Morse."""
-    palabras = cadena.split('  ')
-    cadenaalf = []
-    for palabra in palabras:
-        letras = palabra.split()
-        for letra in letras:
-            cadenaalf.append(letraMorseToChar(letra).lower())
-        cadenaalf.append(' ')
-    return ''.join(cadenaalf).strip()
+def encodeToMorse(alfstring):
+    morsestring = []
     
+    for i in alfstring: 
+        element = i.upper()
+        if element in MORSE.keys(): 
+            morsekey = MORSE.get(i)
+        elif element == ' ': 
+            morsekey = ''   
+        else:
+            morsekey = ''
+        morsestring.append(morsekey)
+    return ' '.join(morsestring)    
+     
+def decodeMorse(morsestring):
+    words = morsestring.split('  ')
+    alfstring = []
+    for word in words:
+        letters = word.split()
+        for letter in letters:
+            for k, v in MORSE.iteritems():
+                if letter == v:
+                    alfstring.append(k.lower())
+        alfstring.append(' ')
+    return ''.join(alfstring).strip()
+    
+if __name__ == '__main__':
+    pass
