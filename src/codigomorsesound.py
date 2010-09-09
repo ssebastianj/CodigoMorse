@@ -35,3 +35,6 @@ class CodigoMorseSound:
     def setFrequency(self, frequency):
         if frequency >= 37 and frequency <= 32767: self.frecuencia = frequency
         else: raise ValueError(u'frequency debe ser un número entre 37 y 32767')
+
+    def play(self):
+        
