@@ -8,7 +8,7 @@ import tkSnack
 
 class CodigoMorseSound:
         
-    def __init__(self, wpm=5, frequency=150, noteshape='sine'):
+    def __init__(self, wpm=10, frequency=500, noteshape='sine'):
         self.palabras_por_minuto = wpm
         self.unidad_tiempo = 1200.0 / wpm
         self.frecuencia = frequency
@@ -104,6 +104,3 @@ class CodigoMorseSound:
             self._noteshape = shape
         else:
             raise ValueError(u'El valor de shape no es válido.')
-        
-if __name__ == '__main__':
-    pass
