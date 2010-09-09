@@ -101,7 +101,9 @@ def decodeMorse(morsestring):
 
 if __name__ == '__main__':
     import sys
-    if sys.argv[1] == '-e':
-        print encodeToMorse(sys.argv[2])
-    elif sys.argv[1] == '-d':
-        print decodeMorse(sys.argv[2])
+    if len(sys.argv) == 3:
+        if sys.argv[1] == '-e':
+            print encodeToMorse(sys.argv[2])
+        elif sys.argv[1] == '-d':
+            print decodeMorse(sys.argv[2])
+    
