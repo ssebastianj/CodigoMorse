@@ -9,9 +9,9 @@ import tkSnack
 class CodigoMorseSound:
         
     def __init__(self, wpm=10, frequency=500, noteshape='sine'):
-        self.palabras_por_minuto = wpm
-        self.unidad_tiempo = 1200.0 / wpm
-        self.frecuencia = frequency
+        self.words_per_minute = wpm
+        self.time_unit = 1200.0 / wpm
+        self.frequency = frequency
         self._configTimes()
         
         self._root = Tkinter.Tk()
@@ -19,31 +19,31 @@ class CodigoMorseSound:
         self._noteshape = noteshape
     
     def _configTimes(self):
-        self.tmp_punto = self.unidad_tiempo
-        self.tmp_raya = self.tmp_punto * 3
-        self.tmp_espacio_inter_elementos = self.tmp_punto
-        self.tmp_espacio_entre_letras = self.tmp_punto * 3
-        self.tmp_espacio_entre_palabras = self.tmp_punto * 7
+        self.tmp_dot = self.time_unit
+        self.tmp_dash = self.tmp_dot * 3
+        self.tmp_inter_elements_space = self.tmp_dot
+        self.tmp_space_between_letters = self.tmp_dot * 3
+        self.tmp_space_between_words = self.tmp_dot * 7
         
     def setWordsPerMinute(self, wpm):
         if wpm > 0: 
-            self.palabras_por_minuto = wpm
-            self.unidad_tiempo = 1200.0 / wpm
+            self.words_per_minute = wpm
+            self.time_unit = 1200.0 / wpm
             self._configTimes()
         else: 
             raise ValueError(u'wpm debe ser un número mayor a cero.')
         
     def setTimeUnit(self, duration):
         if duration > 0: 
-            self.unidad_tiempo = duration
-            self.palabras_por_minuto = 1200.0 / self.unidad_tiempo
+            self.time_unit = duration
+            self.words_per_minute = 1200.0 / self.time_unit
             self._configTimes()
         else: 
             raise ValueError(u'duration debe ser un número mayor a cero.')
         
     def setFrequency(self, frequency):
         if frequency >= 1 and frequency <= 10000: 
-            self.frecuencia = frequency
+            self.frequency = frequency
         else: 
             raise ValueError(u'frequency debe ser un número entre 1 y 10000.')
 
@@ -67,19 +67,19 @@ class CodigoMorseSound:
                     elements_spaces = len(letter) - 1
                     for element in letter:
                         if element == '-':
-                            self._playNote(self.frecuencia, self.tmp_raya)
+                            self._playNote(self.frequency, self.tmp_dash)
                         elif element == '.':
-                            self._playNote(self.frecuencia, self.tmp_punto)
+                            self._playNote(self.frequency, self.tmp_dot)
                         
                         if elements_spaces != 0:
-                            time.sleep(self.tmp_espacio_inter_elementos / 1000.0)
+                            time.sleep(self.tmp_inter_elements_space / 1000.0)
                             elements_spaces -= 1
                     
                     if letters_spaces != 0:
-                        time.sleep(self.tmp_espacio_entre_letras / 1000.0)
+                        time.sleep(self.tmp_space_between_letters / 1000.0)
                         letters_spaces -= 1
                 if words_spaces != 0:
-                    time.sleep(self.tmp_espacio_entre_palabras / 1000.0)
+                    time.sleep(self.tmp_space_between_words / 1000.0)
                     words_spaces -= 1
                     
     def playAlfString(self, alfstring):
