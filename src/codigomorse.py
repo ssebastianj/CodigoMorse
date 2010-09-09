@@ -1,3 +1,4 @@
+#! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
 MORSE = {'A':   '.-',
@@ -86,8 +87,9 @@ def encodeToMorse(alfstring):
     return ' '.join(morsestring)    
      
 def decodeMorse(morsestring):
-    words = morsestring.split('  ')
     alfstring = []
+    words = morsestring.split('  ')
+    
     for word in words:
         letters = word.split()
         for letter in letters:
