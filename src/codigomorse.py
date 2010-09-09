@@ -107,6 +107,12 @@ def decodeMorse(morsestring):
         alfstring.append(' ')
     return ''.join(alfstring).strip()
 
+# La sintaxis para utilizar el módulo desde consola es la siguiente:
+# python codigomorse.py [-e|-d] cadena
+#
+# cadena  Cadena encerrada entre comillas dobles.
+# -e      Encode. Codificar cadena a código Morse.
+# -d      Decode. Decodificar cadena desde código Morse. 
 if __name__ == '__main__':
     import sys
     if len(sys.argv) == 3:
