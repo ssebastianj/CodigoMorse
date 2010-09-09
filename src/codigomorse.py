@@ -78,7 +78,7 @@ def encodeToMorse(alfstring):
     for i in alfstring: 
         element = i.upper()
         if element in MORSE.keys(): 
-            morsekey = MORSE.get(i)
+            morsekey = MORSE.get(element)
         elif element == ' ': 
             morsekey = ''   
         else:
@@ -98,6 +98,10 @@ def decodeMorse(morsestring):
                     alfstring.append(k.lower())
         alfstring.append(' ')
     return ''.join(alfstring).strip()
-    
+
 if __name__ == '__main__':
-    pass
+    import sys
+    if sys.argv[1] == '-e':
+        print encodeToMorse(sys.argv[2])
+    elif sys.argv[1] == '-d':
+        print decodeMorse(sys.argv[2])
