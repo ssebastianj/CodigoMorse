@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
+import Tkinter
+import tkSnack
 import codigomorse
-import winsound
 
 class CodigoMorseSound:
         
@@ -10,6 +11,9 @@ class CodigoMorseSound:
         self.unidad_tiempo = 1200.0 / wpm
         self.frecuencia = frequency
         self._configTimes()
+        
+        root = Tkinter.Tk()
+        tkSnack.initializeSnack(root)
     
     def _configTimes(self):
         self.tmp_punto = self.unidad_tiempo
@@ -36,5 +40,10 @@ class CodigoMorseSound:
         if frequency >= 37 and frequency <= 32767: self.frecuencia = frequency
         else: raise ValueError(u'frequency debe ser un número entre 37 y 32767')
 
-    def play(self):
-        
+    def setVolume(self, volume=50):
+        if volume > 100: volume = 100
+        elif volume < 0: volume = 0
+        tkSnack.audio.play_gain(volume)
+    
+    def playSound(self):
+        pass
