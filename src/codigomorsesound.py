@@ -1,10 +1,10 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import Tkinter
-import tkSnack
 import codigomorse
 import time
+import Tkinter
+import tkSnack
 
 class CodigoMorseSound:
         
