@@ -104,7 +104,7 @@ class CodigoMorseSound:
             pass
         
     def setNoteShape(self, shape):
-        SHAPES = ['sine', 'triangle', 'rectangle', 'sawtooth', 'noise']
+        SHAPES = ['sine', 'triangle', 'rectangle', 'sampled', 'noise']
         if shape.lower().strip() in SHAPES:
             self._noteshape = shape
         else:
