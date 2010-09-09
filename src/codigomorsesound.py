@@ -67,23 +67,18 @@ class CodigoMorseSound:
                     elements_spaces = len(letter) - 1
                     for element in letter:
                         if element == '-':
-                            print 'Raya'
                             self._playNote(self.frecuencia, self.tmp_raya)
                         elif element == '.':
-                            print 'Punto'
                             self._playNote(self.frecuencia, self.tmp_punto)
                         
                         if elements_spaces != 0:
-                            print 'Espacio entre elementos'
                             time.sleep(self.tmp_espacio_inter_elementos / 1000.0)
                             elements_spaces -= 1
                     
                     if letters_spaces != 0:
-                        print 'Espacio entre letras'
                         time.sleep(self.tmp_espacio_entre_letras / 1000.0)
                         letters_spaces -= 1
                 if words_spaces != 0:
-                    print 'Espacio entre palabras'
                     time.sleep(self.tmp_espacio_entre_palabras / 1000.0)
                     words_spaces -= 1
                     
