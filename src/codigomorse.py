@@ -60,7 +60,7 @@ MORSE = {'A':   '.-',
     
 def encodeToMorse(alfstring):
     u"""Convierte una cadena alfabética a código Morse. Devuelve una cadena con
-       su representación.
+        su representación.
     """
     morsestring = []
     
@@ -80,19 +80,19 @@ def encodeToMorse(alfstring):
      
 def decodeMorse(morsestring):
     u"""Convierte una cadena en código Morse a una cadena alfabética. Devuelve una
-       cadena con su representación.
+        cadena con su representación.
        
-       Argumentos:
-       morsestring -- Cadena que contiene una combinación de rayas (-), puntos (.)
-                      y espacios. 
+        Argumentos:
+        morsestring -- Cadena que contiene una combinación de rayas (-), puntos (.)
+                       y espacios. 
                       
-                      Convención de espacios:
-                      - Entre símbolos de la misma letra: Sin espaciado
-                      - Entre letras: 1 espacio
-                      - Entre palabras: 2 espacios
+                       Convención de espacios:
+                       - Entre símbolos de la misma letra: Sin espaciado
+                       - Entre letras: 1 espacio
+                       - Entre palabras: 2 espacios
                       
-                      Si la cadena tiene uno o más espacios iniciales o finales,
-                      éstos son eliminados a la salida.
+                       Si la cadena tiene uno o más espacios iniciales o finales,
+                       éstos son eliminados a la salida.
                        
     """
     alfstring = []
