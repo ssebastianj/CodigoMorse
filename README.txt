@@ -12,7 +12,7 @@ Dependencias:
 * Para utilizar el módulo CodigoMorseSerial se requiere:
 	- pySerial v2.5+ (http://pyserial.sourceforge.net/)	
 	
-* Para utilizar el módulo CodigoMorseSound se require:
+* Para utilizar el módulo CodigoMorseSound se requiere:
 	- Snack v2.2.10+ (http://www.speech.kth.se/snack/)
 
 -----------------------------------------------------------------------------------------
