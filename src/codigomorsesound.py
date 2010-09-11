@@ -1,10 +1,10 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import codigomorse
-import time
 import Tkinter
+import codigomorse
 import tkSnack
+from time import sleep
 
 class CodigoMorseSound:
         
@@ -16,7 +16,6 @@ class CodigoMorseSound:
             frequency  -- Frecuencia de la nota en Hz (default: 500)
             noteshape  -- Forma de onda de la nota. Los valores admitidos son:
                          'sine', 'triangle', 'rectangle', 'noise' y 'sampled' (default: 'sine')
-                         
         """
         self.words_per_minute = wpm
         # Utilizar números flotantes debido a un problema en la división realizada 
@@ -84,7 +83,6 @@ class CodigoMorseSound:
             
             Excepciones:
             ValueError
-        
         """
         if frequency >= 1 and frequency <= 10000: 
             self.frequency = frequency
@@ -96,7 +94,6 @@ class CodigoMorseSound:
         
              Argumentos:
              volume -- Volumen de las notas entre 0 y 100 (default: 50)
-             
         """
         if volume > 100: 
             volume = 100
@@ -110,7 +107,6 @@ class CodigoMorseSound:
         
            Argumentos:
            morsestring -- Cadena en formato código Morse válida.
-            
         """
         if morsestring != '':
             words = morsestring.split('  ')                 # Separar cadena en palabras
@@ -132,16 +128,16 @@ class CodigoMorseSound:
                         
                         if elements_spaces != 0:
                             # Realizar pausa para emular un espacio entre elementos
-                            time.sleep(self.tmp_inter_elements_space / 1000.0)
+                            sleep(self.tmp_inter_elements_space / 1000.0)
                             elements_spaces -= 1
                     
                     if letters_spaces != 0:
                         # Realizar pausa para emular un espacio entre letras
-                        time.sleep(self.tmp_space_between_letters / 1000.0)
+                        sleep(self.tmp_space_between_letters / 1000.0)
                         letters_spaces -= 1
                 if words_spaces != 0:
                     # Realizar pausa para emular un espacio entre palabras
-                    time.sleep(self.tmp_space_between_words / 1000.0)
+                    sleep(self.tmp_space_between_words / 1000.0)
                     words_spaces -= 1
                     
     def playAlfString(self, alfstring):
@@ -150,7 +146,6 @@ class CodigoMorseSound:
            
             Argumentos:
             alfstring -- Cadena alfabética.
-           
          """
         self.playMorseString(codigomorse.encodeToMorse(alfstring))               
 
@@ -160,7 +155,6 @@ class CodigoMorseSound:
            Argumentos:
            frequency -- Frecuencia de una nota (en Hz)
            duration  -- Duración de una nota (en milisegundos)
-           
         """
         snd = tkSnack.Sound()
         self._filt = tkSnack.Filter('generator', frequency, 30000, 0.0, self._noteshape, int(11500 * (duration / 1000)))
@@ -184,7 +178,6 @@ class CodigoMorseSound:
                      
             Excepciones:
             ValueError
-        
         """
         SHAPES = ['sine', 'triangle', 'rectangle', 'sampled', 'noise']
         if shape.lower().strip() in SHAPES:
