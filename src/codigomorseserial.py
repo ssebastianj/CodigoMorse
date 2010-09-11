@@ -3,3 +3,5 @@
 
 import codigomorse
 import serial
+
+#TODO: Implementar CodigoMorseSerial
