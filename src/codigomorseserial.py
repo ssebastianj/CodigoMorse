@@ -72,4 +72,15 @@ class CodigoMorseSerial():
             self._configTimes()             # Reconfigurar tiempo de elementos
         else: 
             raise ValueError(u'duration debe ser un número mayor a cero.')
-        
+    
+    def openPort(self):
+        if self.serialport is not None:
+            if not self.serialport.isOpen():
+                self.serialport.open()
+                
+    def closePort(self):
+        if self.serialport is not None:
+            if self.serialport.isOpen():
+                self.serialport.close()
+                
+    
