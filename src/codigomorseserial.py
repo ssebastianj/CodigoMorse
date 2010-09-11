@@ -9,7 +9,7 @@ class CodigoMorseSerial():
     
     serialport = None
     
-    def __init__(self, wpm=10, frequency=500, sport=0, sbaudrate=9600, sbytesize=8, sparity='N', sstopbits=1,
+    def __init__(self, wpm=10, sport=0, sbaudrate=9600, sbytesize=8, sparity='N', sstopbits=1,
                  stimeout=None, sxonxoff=False, srtscts=False, sdsrdtr=False):
         try:
             self.serialport = serial.Serial(port=sport, baudrate=sbaudrate,
@@ -25,7 +25,6 @@ class CodigoMorseSerial():
         # Utilizar números flotantes debido a un problema en la división realizada 
         # por el intérprete de Python 2.x
         self.time_unit = 1200.0 / wpm       
-        self.frequency = frequency
         self._configTimes()                 # Reconfigurar tiempo de elementos
     
     def _configTimes(self):
@@ -74,16 +73,3 @@ class CodigoMorseSerial():
         else: 
             raise ValueError(u'duration debe ser un número mayor a cero.')
         
-    def setFrequency(self, frequency):
-        u"""Establece la frecuencia de las notas.
-        
-            Argumentos:
-            frequency -- Frecuencia en Hz entre 1 y 10000 (1kHz = 1000Hz)
-            
-            Excepciones:
-            ValueError
-        """
-        if frequency >= 1 and frequency <= 10000: 
-            self.frequency = frequency
-        else: 
-            raise ValueError(u'frequency debe ser un número entre 1 y 10000.')
