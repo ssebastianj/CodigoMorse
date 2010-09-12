@@ -11,12 +11,32 @@ class CodigoMorseSerial():
     
     def __init__(self, wpm=10, sport=0, sbaudrate=9600, sbytesize=8, sparity='N', sstopbits=1,
                  stimeout=None, sxonxoff=False, srtscts=False, sdsrdtr=False):
+        u"""Crea una nueva instacia de CodigomorseSerial.
+        
+           Argumentos:
+           wpm        --  Words Per Minute (Palabras Por Minuto)(default: 10)
+           sport      --  Puerto serie a utilizar (default: 0)
+           sbaudrate  --  Ratio de baudios a utilizar (default: 9600)
+           sbytesize  --  Tamaño de bytes (default: 8)
+           sparity    --  Bit de paridad (default: 'N')
+           sstopbits  --  Bits de parada (default: 1)
+           stimeout   --  Timeout (default: None)
+           
+           
+           Atención: poner a True solamente uno de los 3 argumentos siguientes:
+           sxonxoff   --  Control de flujo por software (default: False)
+           srtscts    --  Control de flujo por hardware RTS/CTS (default: False)
+           sdsrdtr    --  Control de flujo por hardware DSR/DTR (default: False)
+        """
         try:
+            # Inicializar puerto serie
             self.serialport = serial.Serial(port=sport, baudrate=sbaudrate,
                                              bytesize=sbytesize, parity=sparity,
                                              stopbits=sstopbits, timeout=stimeout,
                                              xonxoff=sxonxoff, rtscts=srtscts,
                                              dsrdtr=sdsrdtr)
+            self.serialport.setRTS(0)
+            self.serialport.setDTR(0)
         except serial.SerialException:
             print 'Se ha producido un error al intentar conectarse al' + \
                   ' puerto {0} ("{1}")'.format(sport, serial.device(sport))
@@ -74,13 +94,104 @@ class CodigoMorseSerial():
             raise ValueError(u'duration debe ser un número mayor a cero.')
     
     def openPort(self):
+        """Abre el puerto serie configurado."""
         if self.serialport is not None:
             if not self.serialport.isOpen():
                 self.serialport.open()
                 
     def closePort(self):
+        """Cierra el puerto serie configurado."""
         if self.serialport is not None:
             if self.serialport.isOpen():
                 self.serialport.close()
                 
+    def writeMorseString(self, morsestring, newlines=False):
+        u"""Escribe una cadena en código Morse al puerto serie configurado.
+        
+           Argumentos:
+           morsestring -- Cadena en código Morse válida.
+           newlines    -- Booleano que indica si al final de la cadena se
+                          introduce el caracter de nueva línea (default: False)
+        """
+        if morsestring != '':
+            if self.serialport.isOpen():
+                if newlines:
+                    # Escribir al puerto con caracter de nueva línea
+                    self.serialport.writelines(morsestring)
+                else:
+                    # Escribir al puerto sin caracter de nueva línea
+                    self.serialport.write(morsestring)
+                    
+    def writeAlfString(self, alfstring, newlines):
+        """Convierte una cadena alfabética en una cadena en código Morse y la
+           escribe en el puerto serie.
+           
+           Argumentos:
+           alfstring -- Cadena alfabética
+           newlines  -- Booleano que indica si al final de la cadena se introduce
+                        el caracter de nueva línea.
+        """
+        self.writeMorseString(codigomorse.encodeToMorse(alfstring), newlines) 
+
+    def setRTS(self, morsestring):
+        """Establece el nivel del pin RTS de acuerdo a los elementos de la cadena Morse.
+        
+           Argumentos:
+           morsestring -- Cadena en código Morse válida.
+        """
+        self._setPinState(morsestring, 'RTS')
     
+    def setDTR(self, morsestring):
+        """Establece el nivel del pin DTR de acuerdo a los elementos de la cadena Morse.
+        
+           Argumentos:
+           morsestring -- Cadena en código Morse válida.
+        """
+        self._setPinState(morsestring, 'DTR')
+        
+    def _setPinState(self, morsestring, pin):
+        """Establece el nivel de un pin dado en forma dinámica.
+           
+           Argumentos:
+           morsestring -- Cadena en código Morse válida.
+           pin         -- Nombre del pin (salida) del puerto serie válido.
+        """
+        # Obtener setter del pin de forma dinámica
+        pin_control = getattr(self.serialport, 'set' + pin)
+
+        if morsestring != '':
+            words = morsestring.split('  ')                 # Separar cadena en palabras
+            words_spaces = len(words) - 1
+            
+            for word in words:                              # Separar palabra en sus letras
+                letters = word.split()
+                letters_spaces = len(letters) - 1
+                
+                for letter in letters:
+                    elements_spaces = len(letter) - 1
+                    for element in letter:
+                        # Poner a nivel alto el pin
+                        pin_control(1)     
+                        if element == '-':
+                            # Dejar a nivel alto tanto como dure una raya
+                            sleep(self.tmp_dash / 1000.0)
+                        elif element == '.':
+                            # Dejar a nivel alto tanto como dure un punto
+                            sleep(self.tmp_dot / 1000.0)
+                        
+                        # Poner a nivel bajo el pin
+                        pin_control(0)
+                        
+                        if elements_spaces != 0:
+                            # Realizar pausa para emular un espacio entre elementos
+                            sleep(self.tmp_inter_elements_space / 1000.0)
+                            elements_spaces -= 1
+                    
+                    if letters_spaces != 0:
+                        # Realizar pausa para emular un espacio entre letras
+                        sleep(self.tmp_space_between_letters / 1000.0)
+                        letters_spaces -= 1
+                if words_spaces != 0:
+                    # Realizar pausa para emular un espacio entre palabras
+                    sleep(self.tmp_space_between_words / 1000.0)
+                    words_spaces -= 1
