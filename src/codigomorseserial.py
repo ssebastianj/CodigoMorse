@@ -1,6 +1,18 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
+#==== Signal ========== Abbrev ==== Pin ========================================
+# Common Ground           G          5
+# Transmitted Data        TxD        3
+# Received Data           RxD        2
+# Data Terminal Ready     DTR        4
+# Data Set Ready          DSR        6
+# Request To Send         RTS        7 
+# Clear To Send           CTS        8
+# Carrier Detect          DCD        1
+# Ring Indicator          RI         9
+#===============================================================================
+
 import codigomorse
 import serial
 from time import sleep
@@ -123,7 +135,7 @@ class CodigoMorseSerial():
                     self.serialport.write(morsestring)
                     
     def writeAlfString(self, alfstring, newlines):
-        """Convierte una cadena alfabética en una cadena en código Morse y la
+        u"""Convierte una cadena alfabética en una cadena en código Morse y la
            escribe en el puerto serie.
            
            Argumentos:
@@ -134,7 +146,7 @@ class CodigoMorseSerial():
         self.writeMorseString(codigomorse.encodeToMorse(alfstring), newlines) 
 
     def setRTS(self, morsestring):
-        """Establece el nivel del pin RTS de acuerdo a los elementos de la cadena Morse.
+        u"""Establece el nivel del pin RTS de acuerdo a los elementos de la cadena Morse.
         
            Argumentos:
            morsestring -- Cadena en código Morse válida.
@@ -142,7 +154,7 @@ class CodigoMorseSerial():
         self._setPinState(morsestring, 'RTS')
     
     def setDTR(self, morsestring):
-        """Establece el nivel del pin DTR de acuerdo a los elementos de la cadena Morse.
+        u"""Establece el nivel del pin DTR de acuerdo a los elementos de la cadena Morse.
         
            Argumentos:
            morsestring -- Cadena en código Morse válida.
@@ -150,7 +162,7 @@ class CodigoMorseSerial():
         self._setPinState(morsestring, 'DTR')
         
     def _setPinState(self, morsestring, pin):
-        """Establece el nivel de un pin dado en forma dinámica.
+        u"""Establece el nivel de un pin dado en forma dinámica.
            
            Argumentos:
            morsestring -- Cadena en código Morse válida.
