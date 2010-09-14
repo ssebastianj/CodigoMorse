@@ -8,14 +8,16 @@ Info
 
 Dependencias 	 
 -------------
-CodigoMorse es desarrollado utilizando Python 2.7 (http://www.python.org/download/releases/2.7/)
+CodigoMorse es desarrollado utilizando Python 2.7
+
+* [Python 2.7](http://www.python.org/download/releases/2.7/)
 
 * Para utilizar el módulo CodigoMorseSerial se requiere:
-	- pySerial v2.5+ (http://pyserial.sourceforge.net/)	
+	- [pySerial](http://pyserial.sourceforge.net/) v2.5+ 	
 	
 * Para utilizar el módulo CodigoMorseSound se requiere:
-	- Snack v2.2.10+ (http://www.speech.kth.se/snack/)
-
+	- [Snack](http://www.speech.kth.se/snack/ ) v2.2.10+
+	
 Pruebas
 --------
 CodigoMorse ha sido probado en:
@@ -31,5 +33,3 @@ CodigoMorse ha sido probado en:
     - CodigoMorseSerial: OK
 
 *NOTA: no he probado CodigoMorse en todos los sistemas disponibles. Con el tiempo lo haré e iré actualizando los resultados.*
-
-	  
