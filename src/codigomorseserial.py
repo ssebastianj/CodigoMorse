@@ -207,3 +207,7 @@ class CodigoMorseSerial():
                     # Realizar pausa para emular un espacio entre palabras
                     sleep(self.tmp_space_between_words / 1000.0)
                     words_spaces -= 1
+
+    def __del__(self):
+        self.closePort()
+        self.serialport = None

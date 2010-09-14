@@ -3,7 +3,7 @@ Autor: Sebastián J. Seba
 Proyecto: CodigoMorse
 
 -----------------------------------------------------------------------------------------
-Fecha actualización de README: 09/09/2010
+Fecha actualización de README: 13/09/2010
 Versión de Python:  2.7
 
 -----------------------------------------------------------------------------------------
@@ -22,6 +22,11 @@ CodigoMorse ha sido probado en:
 	CodigoMorse: OK
 	CodigoMorseSound: OK
 	CodigoMorseSerial: OK
+
+- Ubuntu 10.04 (Lucid Lynx):
+    CodigoMorse: OK
+    CodigoMorseSound: Problemas con tkSnack y Python 2.7. Con Python 2.6 funciona correctamente.
+    CodigoMorseSerial: OK
 
 NOTA: por diversas cuestiones no he probado (todavía) CodigoMorse en otros sistemas.
 	  Si quieres ayudar puedes probar CodigoMorse en sistemas que no se hallen listados
