@@ -8,7 +8,7 @@ Info
 
 Dependencias 	 
 -------------
-CodigoMorse es desarrollado utilizando Python 2.7
+CodigoMorse es desarrollado utilizando Python 2.7 (http://www.python.org/download/releases/2.7/)
 
 * Para utilizar el módulo CodigoMorseSerial se requiere:
 	- pySerial v2.5+ (http://pyserial.sourceforge.net/)	
