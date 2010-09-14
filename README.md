@@ -3,14 +3,13 @@ CodigoMorse
 
 Info
 ----
-Autor: Sebastián J. Seba
-Proyecto: CodigoMorse
-
-Fecha actualización de README: 13/09/2010
-Versión de Python:  2.7
+**Autor**: Sebastián J. Seba
+**README Update**: 14/09/2010
 
 Dependencias 	 
 -------------
+CodigoMorse es desarrollado utilizando Python 2.7
+
 * Para utilizar el módulo CodigoMorseSerial se requiere:
 	- pySerial v2.5+ (http://pyserial.sourceforge.net/)	
 	
