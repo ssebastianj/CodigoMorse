@@ -184,3 +184,6 @@ class CodigoMorseSound:
             self._noteshape = shape
         else:
             raise ValueError(u'El valor de shape no es válido.')
+        
+    def __del__(self):
+        self.soundStop()
