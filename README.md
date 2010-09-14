@@ -3,8 +3,8 @@ CodigoMorse
 
 Info
 ----
-**Autor**: Sebastián J. Seba
-**README Update**: 14/09/2010
+* **Autor**: Sebastián J. Seba
+* **README Update**: 14/09/2010
 
 Dependencias 	 
 -------------
@@ -30,7 +30,6 @@ CodigoMorse ha sido probado en:
     - CodigoMorseSound: Problemas con tkSnack y Python 2.7. Con Python 2.6 funciona correctamente.
     - CodigoMorseSerial: OK
 
-*NOTA: no he probado CodigoMorse en todos los sistemas disponibles. Con el tiempo lo haré
-	   e iré actualizando los resultados.*
+*NOTA: no he probado CodigoMorse en todos los sistemas disponibles. Con el tiempo lo haré e iré actualizando los resultados.*
 
 	  
