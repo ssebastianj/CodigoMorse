@@ -166,7 +166,7 @@ class CodigoMorseSound:
         try:
             self._root = self._root.destroy()
             self._filt = None
-        except:
+        except Exception:
             pass
         
     def setNoteShape(self, shape):
