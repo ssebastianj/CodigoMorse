@@ -163,7 +163,7 @@ class CodigoMorseSound:
            duration  -- Duración de una nota (en milisegundos)
         """
         snd = tkSnack.Sound()
-        self._filt = tkSnack.Filter('generator', frequency, 30000, 0.0, self._noteshape, 
+        self._filt = tkSnack.Filter('generator', frequency, 30000, 0.0, self._noteshape,
                                     int(11500 * (duration / 1000)))
         snd.stop()
         snd.play(filter=self._filt, blocking=1)
