@@ -58,14 +58,14 @@ MORSE = {'A':   '.-',
          'ERROR':'........'
         }
     
-def encodeToMorse(alfstring):
+def encode_to_morse(alfstring):
     u"""Convierte una cadena alfabética a código Morse. Devuelve una cadena con
         su representación.
     """
     morsestring = []
     
     for i in alfstring: 
-        element = i.upper()                       # Normalizar caracter de entrada a mayúsculas.
+        element = i.upper()                    # Normalizar caracter de entrada a mayúsculas.
         if element in MORSE.keys(): 
             morsekey = MORSE.get(element)
         elif element == ' ': 
@@ -78,7 +78,7 @@ def encodeToMorse(alfstring):
         morsestring.append(morsekey)
     return ' '.join(morsestring)    
      
-def decodeMorse(morsestring):
+def decode_morse(morsestring):
     u"""Convierte una cadena en código Morse a una cadena alfabética. Devuelve una
         cadena con su representación.
        
@@ -101,9 +101,9 @@ def decodeMorse(morsestring):
     for word in words:
         letters = word.split()                    # Separar una palabra en sus letras.
         for letter in letters:
-            for k, v in MORSE.iteritems():
-                if letter == v:
-                    alfstring.append(k.lower())   # Normalizar caracter de salida a minúsculas.
+            for key, value in MORSE.iteritems():
+                if letter == value:
+                    alfstring.append(key.lower())   # Normalizar caracter de salida a minúsculas.
         alfstring.append(' ')
     return ''.join(alfstring).strip()
 
@@ -118,6 +118,6 @@ if __name__ == '__main__':
     if len(sys.argv) == 3:
         # Verificar argumento pasado por consola.
         if sys.argv[1] == '-e':                   # Encode
-            print encodeToMorse(sys.argv[2])    
+            print encode_to_morse(sys.argv[2])    
         elif sys.argv[1] == '-d':                 # Decode
-            print decodeMorse(sys.argv[2])      
+            print decode_morse(sys.argv[2])      

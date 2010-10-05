@@ -18,11 +18,13 @@ import serial
 from time import sleep
 
 class CodigoMorseSerial():
+    """Clase CodigoMorseSerial"""
     
     serialport = None
     
-    def __init__(self, wpm=10, sport=0, sbaudrate=9600, sbytesize=8, sparity='N', sstopbits=1,
-                 stimeout=None, sxonxoff=False, srtscts=False, sdsrdtr=False):
+    def __init__(self, wpm=10, sport=0, sbaudrate=9600, sbytesize=8, sparity='N',
+                 sstopbits=1, stimeout=None, sxonxoff=False, srtscts=False,
+                 sdsrdtr=False):
         u"""Crea una nueva instacia de CodigomorseSerial.
         
            Argumentos:
@@ -43,10 +45,10 @@ class CodigoMorseSerial():
         try:
             # Inicializar puerto serie
             self.serialport = serial.Serial(port=sport, baudrate=sbaudrate,
-                                             bytesize=sbytesize, parity=sparity,
-                                             stopbits=sstopbits, timeout=stimeout,
-                                             xonxoff=sxonxoff, rtscts=srtscts,
-                                             dsrdtr=sdsrdtr)
+                                            bytesize=sbytesize, parity=sparity,
+                                            stopbits=sstopbits, timeout=stimeout,
+                                            xonxoff=sxonxoff, rtscts=srtscts,
+                                            dsrdtr=sdsrdtr)
             self.serialport.setRTS(0)
             self.serialport.setDTR(0)
         except serial.SerialException:
@@ -57,9 +59,13 @@ class CodigoMorseSerial():
         # Utilizar números flotantes debido a un problema en la división realizada 
         # por el intérprete de Python 2.x
         self.time_unit = 1200.0 / wpm       
-        self._configTimes()                 # Reconfigurar tiempo de elementos
+        self.tmp_dot = self.time_unit
+        self.tmp_dash = self.tmp_dot * 3
+        self.tmp_inter_elements_space = self.tmp_dot
+        self.tmp_space_between_letters = self.tmp_dot * 3
+        self.tmp_space_between_words = self.tmp_dot * 7
     
-    def _configTimes(self):
+    def _config_times(self):
         u"""(Re)configura los tiempos de cada elemento basándose en la duración de
             WPM y/o una unidad de tiempo.
         """
@@ -69,7 +75,7 @@ class CodigoMorseSerial():
         self.tmp_space_between_letters = self.tmp_dot * 3
         self.tmp_space_between_words = self.tmp_dot * 7
         
-    def setWordsPerMinute(self, wpm):
+    def set_words_per_minute(self, wpm):
         u"""Establece la cantidad de palabras por minuto a utilizar.
            
            Argumentos:
@@ -83,11 +89,11 @@ class CodigoMorseSerial():
             # Utilizar números flotantes debido a un problema en la división realizada 
             # por el intérprete de Python 2.x
             self.time_unit = 1200.0 / wpm
-            self._configTimes()             # Reconfigurar tiempo de elementos
+            self._config_times()             # Reconfigurar tiempo de elementos
         else: 
             raise ValueError(u'wpm debe ser un número mayor a cero.')
         
-    def setTimeUnit(self, duration):
+    def set_time_unit(self, duration):
         u"""Establece la duración de una unidad de tiempo.
         
             Argumentos:
@@ -101,23 +107,23 @@ class CodigoMorseSerial():
             # Utilizar números flotantes debido a un problema en la división realizada 
             # por el intérprete de Python 2.x
             self.words_per_minute = 1200.0 / self.time_unit
-            self._configTimes()             # Reconfigurar tiempo de elementos
+            self._config_times()             # Reconfigurar tiempo de elementos
         else: 
             raise ValueError(u'duration debe ser un número mayor a cero.')
     
-    def openPort(self):
+    def open_port(self):
         """Abre el puerto serie configurado."""
         if self.serialport is not None:
             if not self.serialport.isOpen():
                 self.serialport.open()
                 
-    def closePort(self):
+    def close_port(self):
         """Cierra el puerto serie configurado."""
         if self.serialport is not None:
             if self.serialport.isOpen():
                 self.serialport.close()
                 
-    def writeMorseString(self, morsestring, newlines=False):
+    def write_morse_string(self, morsestring, newlines=False):
         u"""Escribe una cadena en código Morse al puerto serie configurado.
         
            Argumentos:
@@ -134,7 +140,7 @@ class CodigoMorseSerial():
                     # Escribir al puerto sin caracter de nueva línea
                     self.serialport.write(morsestring)
                     
-    def writeAlfString(self, alfstring, newlines):
+    def write_alf_string(self, alfstring, newlines):
         u"""Convierte una cadena alfabética en una cadena en código Morse y la
            escribe en el puerto serie.
            
@@ -143,25 +149,25 @@ class CodigoMorseSerial():
            newlines  -- Booleano que indica si al final de la cadena se introduce
                         el caracter de nueva línea.
         """
-        self.writeMorseString(codigomorse.encodeToMorse(alfstring), newlines) 
+        self.write_morse_string(codigomorse.encode_to_morse(alfstring), newlines) 
 
-    def setRTS(self, morsestring):
+    def set_RTS(self, morsestring):
         u"""Establece el nivel del pin RTS de acuerdo a los elementos de la cadena Morse.
         
            Argumentos:
            morsestring -- Cadena en código Morse válida.
         """
-        self._setPinState(morsestring, 'RTS')
+        self._set_pin_state(morsestring, 'RTS')
     
-    def setDTR(self, morsestring):
+    def set_DTR(self, morsestring):
         u"""Establece el nivel del pin DTR de acuerdo a los elementos de la cadena Morse.
         
            Argumentos:
            morsestring -- Cadena en código Morse válida.
         """
-        self._setPinState(morsestring, 'DTR')
+        self._set_pin_state(morsestring, 'DTR')
         
-    def _setPinState(self, morsestring, pin):
+    def _set_pin_state(self, morsestring, pin):
         u"""Establece el nivel de un pin dado en forma dinámica.
            
            Argumentos:
@@ -209,5 +215,5 @@ class CodigoMorseSerial():
                     words_spaces -= 1
 
     def __del__(self):
-        self.closePort()
+        self.close_port()
         self.serialport = None

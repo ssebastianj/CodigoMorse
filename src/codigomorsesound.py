@@ -7,6 +7,7 @@ import tkSnack
 from time import sleep
 
 class CodigoMorseSound:
+    """Clase CodigoMorseSound"""
         
     def __init__(self, wpm=10, frequency=500, noteshape='sine'):
         u"""Crea una nueva instancia de CodigoMorseSound.
@@ -22,14 +23,19 @@ class CodigoMorseSound:
         # por el intérprete de Python 2.x
         self.time_unit = 1200.0 / wpm       
         self.frequency = frequency
-        self._configTimes()                 # Reconfigurar tiempo de elementos
+        self.tmp_dot = self.time_unit
+        self.tmp_dash = self.tmp_dot * 3
+        self.tmp_inter_elements_space = self.tmp_dot
+        self.tmp_space_between_letters = self.tmp_dot * 3
+        self.tmp_space_between_words = self.tmp_dot * 7
         self._noteshape = noteshape
         
+        self._filt = None
         # Inicialización necesaria para que funcione tkSnack.
         self._root = Tkinter.Tk()
-        tkSnack.initializeSnack(self._root)    
-            
-    def _configTimes(self):
+        tkSnack.initializeSnack(self._root)
+                    
+    def _config_times(self):
         u"""(Re)configura los tiempos de cada elemento basándose en la duración de
             WPM y/o una unidad de tiempo.
         """
@@ -39,7 +45,7 @@ class CodigoMorseSound:
         self.tmp_space_between_letters = self.tmp_dot * 3
         self.tmp_space_between_words = self.tmp_dot * 7
         
-    def setWordsPerMinute(self, wpm):
+    def set_words_per_minute(self, wpm):
         u"""Establece la cantidad de palabras por minuto a utilizar.
            
            Argumentos:
@@ -53,11 +59,11 @@ class CodigoMorseSound:
             # Utilizar números flotantes debido a un problema en la división realizada 
             # por el intérprete de Python 2.x
             self.time_unit = 1200.0 / wpm
-            self._configTimes()             # Reconfigurar tiempo de elementos
+            self._config_times()             # Reconfigurar tiempo de elementos
         else: 
             raise ValueError(u'wpm debe ser un número mayor a cero.')
         
-    def setTimeUnit(self, duration):
+    def set_time_unit(self, duration):
         u"""Establece la duración de una unidad de tiempo.
         
             Argumentos:
@@ -71,11 +77,11 @@ class CodigoMorseSound:
             # Utilizar números flotantes debido a un problema en la división realizada 
             # por el intérprete de Python 2.x
             self.words_per_minute = 1200.0 / self.time_unit
-            self._configTimes()             # Reconfigurar tiempo de elementos
+            self._config_times()             # Reconfigurar tiempo de elementos
         else: 
             raise ValueError(u'duration debe ser un número mayor a cero.')
         
-    def setFrequency(self, frequency):
+    def set_frequency(self, frequency):
         u"""Establece la frecuencia de las notas.
         
             Argumentos:
@@ -89,7 +95,7 @@ class CodigoMorseSound:
         else: 
             raise ValueError(u'frequency debe ser un número entre 1 y 10000.')
 
-    def setVolume(self, volume=50):
+    def set_volume(self, volume=50):
         u""""Establece el volumen de las notas.
         
              Argumentos:
@@ -101,7 +107,7 @@ class CodigoMorseSound:
             volume = 0
         tkSnack.audio.play_gain(volume)
     
-    def playMorseString(self, morsestring):
+    def play_morse_string(self, morsestring):
         u"""Procesa una cadena en código Morse y la reproduce mediante la placa de sonido
            utilizando las configuraciones de tiempo y duración preestablecidas. 
         
@@ -121,10 +127,10 @@ class CodigoMorseSound:
                     for element in letter:
                         if element == '-':
                             # Reproducir nota de una raya
-                            self._playNote(self.frequency, self.tmp_dash)         
+                            self._play_note(self.frequency, self.tmp_dash)         
                         elif element == '.':
                             # Reproducir nota de un punto
-                            self._playNote(self.frequency, self.tmp_dot)
+                            self._play_note(self.frequency, self.tmp_dot)
                         
                         if elements_spaces != 0:
                             # Realizar pausa para emular un espacio entre elementos
@@ -140,16 +146,16 @@ class CodigoMorseSound:
                     sleep(self.tmp_space_between_words / 1000.0)
                     words_spaces -= 1
                     
-    def playAlfString(self, alfstring):
+    def play_alf_string(self, alfstring):
         u"""Convierte una cadena alfabética en una cadena de código Morse
             y luego la reproduce mediante la placa de sonido.
            
             Argumentos:
             alfstring -- Cadena alfabética.
          """
-        self.playMorseString(codigomorse.encodeToMorse(alfstring))               
+        self.play_morse_string(codigomorse.encode_to_morse(alfstring))               
 
-    def _playNote(self, frequency, duration):
+    def _play_note(self, frequency, duration):
         u"""Reproduce una nota de frecuencia 'frequency' y duración 'duration'.
         
            Argumentos:
@@ -157,11 +163,12 @@ class CodigoMorseSound:
            duration  -- Duración de una nota (en milisegundos)
         """
         snd = tkSnack.Sound()
-        self._filt = tkSnack.Filter('generator', frequency, 30000, 0.0, self._noteshape, int(11500 * (duration / 1000)))
+        self._filt = tkSnack.Filter('generator', frequency, 30000, 0.0, self._noteshape, 
+                                    int(11500 * (duration / 1000)))
         snd.stop()
         snd.play(filter=self._filt, blocking=1)
         
-    def soundStop(self):
+    def sound_stop(self):
         u"""Detiene el sonido que se encuentra reproduciendo (de manera brusca)."""
         try:
             self._root = self._root.destroy()
@@ -169,7 +176,7 @@ class CodigoMorseSound:
         except Exception:
             pass
         
-    def setNoteShape(self, shape):
+    def set_note_shape(self, shape):
         u"""Establece la forma de onda de las notas.
            
             Argumentos:
@@ -186,4 +193,4 @@ class CodigoMorseSound:
             raise ValueError(u'El valor de shape no es válido.')
         
     def __del__(self):
-        self.soundStop()
+        self.sound_stop()
