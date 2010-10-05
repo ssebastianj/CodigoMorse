@@ -173,6 +173,8 @@ class CodigoMorseSound:
         try:
             self._root = self._root.destroy()
             self._filt = None
+        except Tkinter.EXCEPTION:
+            pass
         except Exception:
             pass
         
