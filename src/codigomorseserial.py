@@ -140,7 +140,7 @@ class CodigoMorseSerial():
                     # Escribir al puerto sin caracter de nueva línea
                     self.serialport.write(morsestring)
                     
-    def write_alf_string(self, alfstring, newlines):
+    def write_alf_string(self, alfstring, newlines=False):
         u"""Convierte una cadena alfabética en una cadena en código Morse y la
            escribe en el puerto serie.
            
