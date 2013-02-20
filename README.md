@@ -1,35 +1,25 @@
 CodigoMorse
 ============
 
-Info
-----
-* **Autor**: Sebastián J. Seba
-* **README Update**: 14/09/2010
-
-Dependencias 	 
--------------
-CodigoMorse es desarrollado utilizando Python 2.7
-
-* [Python 2.7](http://www.python.org/download/releases/2.7/)
-
-* Para utilizar el módulo CodigoMorseSerial se requiere:
-	- [pySerial](http://pyserial.sourceforge.net/) v2.5+ 	
-	
-* Para utilizar el módulo CodigoMorseSound se requiere:
-	- [Snack](http://www.speech.kth.se/snack/ ) v2.2.10+
-	
-Pruebas
+Features
 --------
-CodigoMorse ha sido probado en:
+Main module:
+* Encode a string to Morse code
+* Decode Morse code to string
 
-* Windows 7:
-	- CodigoMorse: OK
-	- CodigoMorseSound: OK
-	- CodigoMorseSerial: OK
+Serial module:
+* Configurable Morse code's elements timming (dot, dash, etc)
+* Output Morse code to serial port pins: RTS or DTR
 
-* Ubuntu 10.04 (Lucid Lynx):
-    - CodigoMorse: OK
-    - CodigoMorseSound: Problemas con tkSnack y Python 2.7. Con Python 2.6 funciona correctamente.
-    - CodigoMorseSerial: OK
+Sound module:
+* Configurable Morse code's elements timming (dot, dash, etc)
+* Configurable frequency, volume and note shape
 
-*NOTA: no he probado CodigoMorse en todos los sistemas disponibles. Con el tiempo lo haré e iré actualizando los resultados.*
+Dependencies	 
+------------
+* [Python](http://www.python.org) >= 2.7 (Python3 not supported)
+
+Optional:
+
+* [pySerial](http://pyserial.sourceforge.net/) >= v2.5 (needed for Serial module)
+* [Snack](http://www.speech.kth.se/snack/) >= v2.2.10 (needed for Sound module)
