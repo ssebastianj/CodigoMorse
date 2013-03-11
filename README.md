@@ -1,6 +1,8 @@
 CodigoMorse
 ============
 
+[![Build Status](https://travis-ci.org/ssebastianj/CodigoMorse.png)](https://travis-ci.org/[https://travis-ci.org/ssebastianj/CodigoMorse)
+
 Features
 --------
 Main module:
@@ -15,7 +17,7 @@ Sound module:
 * Configurable Morse code's elements timming (dot, dash, etc)
 * Configurable frequency, volume and note shape
 
-Dependencies	 
+Dependencies
 ------------
 * [Python](http://www.python.org) >= 2.7 (Python3 not supported)
 
