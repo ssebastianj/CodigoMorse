@@ -8,3 +8,5 @@ install:
   - "pip install . --use-mirrors"
 # command to run tests
 script: nosetests
+notifications:
+  email: false
